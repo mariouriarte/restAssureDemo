@@ -89,4 +89,19 @@ public class RestAssureDemo {
         response.then().assertThat().body("message", Matchers.equalTo("Successfully! Record has been updated."));
     }
 
+    @Test
+    public void deleteEmployeeTest() {
+        RestAssured.baseURI = "https://dummy.restapiexample.com/api/v1";
+
+        Response response = RestAssured
+                .given().pathParam("id", "6")
+                .when().delete("/delete/{id}");
+
+        response.then().log().body();
+
+        response.then().assertThat().statusCode(200);
+        response.then().assertThat().body("status", Matchers.equalTo("success"));
+        response.then().assertThat().body("data", Matchers.equalTo("6"));
+        response.then().assertThat().body("message", Matchers.equalTo("Successfully! Record has been deleted"));
+    }
 }
